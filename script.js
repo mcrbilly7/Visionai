@@ -1,81 +1,85 @@
-function acceptTerms() {
-  document.getElementById("popup").style.display = "none";
-  document.querySelector(".container").style.display = "block";
+* {
+  box-sizing: border-box;
 }
 
-function generateWebsite() {
-  const vision = document.getElementById("visionInput").value.toLowerCase();
-  let html = "";
-
-  // 🧠 Offline AI ruleset (expandable!)
-  if (vision.includes("portfolio")) {
-    html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My Portfolio</title>
-  <style>
-    body { font-family: Arial; background: #f9f9f9; text-align: center; padding: 40px; }
-    img { width: 200px; margin: 10px; border-radius: 8px; }
-  </style>
-</head>
-<body>
-  <h1>Welcome to My Portfolio</h1>
-  <p>Check out my work below!</p>
-  <img src="https://placekitten.com/200/200" />
-  <img src="https://placekitten.com/201/200" />
-  <img src="https://placekitten.com/202/200" />
-</body>
-</html>`;
-  } else if (vision.includes("contact form")) {
-    html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Contact Us</title>
-  <style>
-    body { font-family: sans-serif; background: #eaf2ff; padding: 40px; text-align: center; }
-    input, textarea { width: 80%; padding: 10px; margin: 10px; border-radius: 6px; border: 1px solid #ccc; }
-  </style>
-</head>
-<body>
-  <h1>Contact Us</h1>
-  <form>
-    <input type="text" placeholder="Your Name" /><br>
-    <input type="email" placeholder="Your Email" /><br>
-    <textarea placeholder="Your Message"></textarea><br>
-    <button type="submit">Send</button>
-  </form>
-</body>
-</html>`;
-  } else {
-    html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My Site</title>
-  <style>
-    body { font-family: sans-serif; background: #fffbe6; padding: 40px; }
-  </style>
-</head>
-<body>
-  <h1>Hello!</h1>
-  <p>This is your generated website from the vision: "${vision}"</p>
-</body>
-</html>`;
-  }
-
-  // Preview + code output
-  const blob = new Blob([html], { type: 'text/html' });
-  document.getElementById("sitePreview").src = URL.createObjectURL(blob);
-  document.getElementById("codeOutput").textContent = html;
-  window.generatedHTML = html;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafa;
+  color: #333;
 }
 
-function downloadHTML() {
-  const blob = new Blob([window.generatedHTML || ""], { type: "text/html" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "vision_site.html";
-  link.click();
+.wrapper {
+  max-width: 960px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #0a58ca;
+}
+
+header p {
+  font-size: 1.1em;
+  color: #666;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin: 15px 0 5px;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px 10px 30px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #0d6efd;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0b5ed7;
+}
+
+iframe {
+  width: 100%;
+  height: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+pre {
+  background-color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
 }
