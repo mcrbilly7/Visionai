@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VisionSite AI (Offline)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="popup">
+    <div class="popup-content">
+      <h2>Terms of Use</h2>
+      <p>By using VisionSite AI, you agree to let the AI generate full websites for you. This does <strong>NOT</strong> access your accounts or control your device. All work is done 100% inside your browser, offline and secure.</p>
+      <button onclick="acceptTerms()">I Agree</button>
+    </div>
+  </div>
+
+  <div class="container" style="display: none;">
+    <h1>🧠 VisionSite AI (Offline)</h1>
+    <p>Describe your website vision below and AI will generate full working code:</p>
+
+    <textarea id="visionInput" placeholder="Example: A blue-themed landing page for a tutoring service with a contact form."></textarea>
+    <button onclick="generateWebsite()">⚙️ Generate Website</button>
+    <button onclick="downloadHTML()">💾 Download HTML</button>
+
+    <h2>🔍 Live Preview</h2>
+    <iframe id="sitePreview" sandbox="allow-scripts allow-same-origin"></iframe>
+
+    <h3>🧾 Generated Code</h3>
+    <pre id="codeOutput"></pre>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
