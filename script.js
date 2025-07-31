@@ -1,85 +1,56 @@
-* {
-  box-sizing: border-box;
+async function generateWebsite() {
+  const vision = document.getElementById("visionInput").value.trim();
+  if (!vision) {
+    alert("Please enter your website vision.");
+    return;
+  }
+
+  const prompt = `
+You are a web developer AI.
+Generate a complete, professional HTML5 website based on this vision:
+"${vision}"
+
+Requirements:
+- Full <html>, <head>, and <body> structure
+- Inline CSS in a <style> tag
+- Responsive and modern layout
+- Use <section>, <nav>, and <footer> where appropriate
+- Avoid external assets or libraries
+`;
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      // 🔑 PUT YOUR API KEY HERE ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+      "Authorization": "Bearer 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",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "gpt-4", // Or use "gpt-3.5-turbo" if preferred
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7
+    })
+  });
+
+  const data = await response.json();
+
+  if (!data.choices || !data.choices[0]) {
+    alert("AI generation failed. Please check your API key or try again.");
+    return;
+  }
+
+  const html = data.choices[0].message.content;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  document.getElementById("sitePreview").src = URL.createObjectURL(blob);
+  document.getElementById("codeOutput").textContent = html;
+  window.generatedHTML = html;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafa;
-  color: #333;
-}
-
-.wrapper {
-  max-width: 960px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-header h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-  color: #0a58ca;
-}
-
-header p {
-  font-size: 1.1em;
-  color: #666;
-}
-
-label {
-  font-weight: 600;
-  display: block;
-  margin: 15px 0 5px;
-}
-
-textarea {
-  width: 100%;
-  height: 120px;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  resize: vertical;
-  margin-bottom: 20px;
-}
-
-button {
-  padding: 12px 20px;
-  margin: 10px 10px 30px 0;
-  border: none;
-  border-radius: 8px;
-  background-color: #0d6efd;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: #0b5ed7;
-}
-
-iframe {
-  width: 100%;
-  height: 400px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 30px;
-}
-
-pre {
-  background-color: #f0f0f0;
-  padding: 16px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.95rem;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  border: 1px solid #ccc;
+function downloadHTML() {
+  const blob = new Blob([window.generatedHTML || ""], { type: "text/html" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "vision_site.html";
+  link.click();
 }
