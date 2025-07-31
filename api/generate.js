@@ -16,7 +16,7 @@ Include:
   const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${process.env.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}`,
+      "Authorization": `Bearer ${process.env.sk-proj-G9kw8NUzxtIz_1x5IFvtRG1BqWSk5l8XsJGB4J_XE0EhUzzdhM1K-}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
